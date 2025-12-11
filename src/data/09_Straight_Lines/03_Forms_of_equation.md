@@ -354,4 +354,3 @@ A line in the plane must be uniquely identified, just as a person must be unique
 
 
 Thus, every equation of a line is nothing but a method of uniquely identifying a geometric line in the coordinate plane.
-

@@ -348,4 +348,3 @@ $$\boxed{ D = \frac{|c_1 - c_2|}{\sqrt{1 + m^2}} }$$
 2. **Shortest Path:** To measure the distance between them, we must move along the **perpendicular direction**, because our numerical example proved that any other direction (diagonal) results in a longer path.
 3. **The Formula:** Using the point-to-line formula, we obtain the elegant result:
    $$D = \frac{|c_1 - c_2|}{\sqrt{1 + m^2}}$$
-

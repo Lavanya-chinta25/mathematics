@@ -84,15 +84,23 @@ function Sidebar({ data, onSelect, activeId, initialOpenMap }) {
     setOpenMap((prev) => ({ ...prev, [parentPath || 'root']: prev[parentPath || 'root'] === name ? null : name }))
   }
 
-  function FolderNode({ node, parentPath }) {
+  function FolderNode({ node, parentPath, depth = 0 }) {
     const key = node.path || node.name
     const isOpen = openMap[parentPath || 'root'] === node.name
+
+    // Base padding for depth
+    const indent = 20
+    const basePadding = 12
+    const titlePadding = depth * indent + basePadding
+    // Files and children need one more level of indent relative to THIS folder
+    const childPadding = (depth + 1) * indent + basePadding
 
     return (
       <div className="folder-node" key={key}>
         <div
           className={`summary-row ${isOpen ? 'open' : ''}`}
           onClick={() => toggleOpen(parentPath, node.name)}
+          style={{ paddingLeft: `${titlePadding}px` }}
         >
           <span className="group-title">{node.name.replace(/_/g, ' ')}</span>
           <span className={`chev ${isOpen ? 'open' : ''}`}>▾</span>
@@ -103,21 +111,34 @@ function Sidebar({ data, onSelect, activeId, initialOpenMap }) {
             {/* files at this level */}
             {node.files && node.files.length > 0 ? (
               node.files.map((f) => (
-                <button key={f.id} className={`nav-item ${activeId === f.id ? 'active' : ''}`} onClick={() => onSelect(f)}>
+                <button
+                  key={f.id}
+                  className={`nav-item ${activeId === f.id ? 'active' : ''}`}
+                  onClick={() => onSelect(f)}
+                  style={{ paddingLeft: `${childPadding}px` }}
+                >
                   {f.label}
                 </button>
               ))
-            ) : (
-              <div className="empty">(no files)</div>
-            )}
+            ) : null}
 
             {/* nested folders */}
             {node.folders && node.folders.length > 0 && (
               <div className="nested-folders">
                 {node.folders.map((child) => (
-                  <FolderNode key={child.path || child.name} node={child} parentPath={node.path || node.name} />
+                  <FolderNode
+                    key={child.path || child.name}
+                    node={child}
+                    parentPath={node.path || node.name}
+                    depth={depth + 1}
+                  />
                 ))}
               </div>
+            )}
+
+            {/* Show empty message only if strictly no content */}
+            {(!node.files?.length && !node.folders?.length) && (
+              <div className="empty" style={{ paddingLeft: `${childPadding}px` }}>(no files)</div>
             )}
           </div>
         )}
@@ -130,7 +151,9 @@ function Sidebar({ data, onSelect, activeId, initialOpenMap }) {
       <div className="sidebar-header">Document Navigator</div>
       <div className="nav-list">
         {data && data.length > 0 ? (
-          data.map((rootNode) => <FolderNode key={rootNode.path || rootNode.name} node={rootNode} parentPath={null} />)
+          data.map((rootNode) => (
+            <FolderNode key={rootNode.path || rootNode.name} node={rootNode} parentPath={null} depth={0} />
+          ))
         ) : (
           <div className="empty">(no documents)</div>
         )}
@@ -149,7 +172,7 @@ function Viewer({ file }) {
       <div className="viewer-header">Document Viewer</div>
       <div className="viewer-file">
         <div className="file-content markdown-body">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypePrism]}> 
+          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[[rehypePrism, { ignoreMissing: true }]]}>
             {file.content}
           </ReactMarkdown>
         </div>
