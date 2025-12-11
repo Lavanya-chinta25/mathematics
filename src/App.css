@@ -40,3 +40,177 @@
 .read-the-docs {
   color: #888;
 }
+
+/* --- App layout for Document Navigator / Viewer --- */
+.app-root {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  max-width: 1400px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+  align-items: start;
+  color: #222;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: #fff;
+}
+
+.sidebar {
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+  padding: 12px;
+  height: calc(100vh - 48px);
+  overflow: auto;
+}
+.sidebar-header {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.sidebar-controls {
+  margin-bottom: 12px;
+}
+.instructions {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.nav-list details {
+  margin-bottom: 8px;
+}
+.nav-list summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 8px 6px;
+  list-style: none;
+  display: block;
+  text-align: left;
+}
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 8px;
+  border-radius: 8px;
+}
+.summary-row:hover { background: #f8fafc }
+.summary-row.open {
+  /* No background or left border for folder names when opened */
+  background: transparent;
+  border-left: none;
+}
+.group-title { font-weight: 700; padding-left: 12px; display:block }
+.chev {
+  display: inline-block;
+  transition: transform 180ms ease;
+  color: #6b7280;
+  margin-left: 8px;
+}
+.chev.open { transform: rotate(180deg); color: #1e3a8a }
+.group-items {
+  padding-left: 12px; /* base indent for files and child folders */
+  margin-top: 6px;
+}
+.group-items .nav-item {
+  padding-left: 12px; /* match folder title indent */
+  font-size: 14px;
+}
+.nested-folders { margin-left: 0; padding-left: 12px; }
+.folder-node .summary-row { cursor: pointer; }
+.nav-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: #333;
+  margin: 6px 0;
+}
+.nav-item.active {
+  background: #eef6ff;
+  border-left: 3px solid #2b6cb0;
+}
+.nav-item:hover {
+  background: #f3f6fb;
+}
+
+/* assistant removed — layout is now two-column: sidebar + viewer */
+
+.viewer {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+  padding: 18px 18px;
+  height: calc(100vh - 48px);
+  overflow: auto;
+}
+.viewer-header {
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.file-title {
+  margin: 8px 0 14px;
+}
+.file-content {
+  color: #333;
+  line-height: 1.6;
+}
+.markdown-body {
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #111827;
+}
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: #0f172a;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+.markdown-body h1 {
+  /* Reduce main heading size for README-style files */
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  margin-top: 12px !important;
+  margin-bottom: 10px !important;
+}
+.markdown-body h2 {
+  font-size: 18px !important;
+  margin-top: 14px !important;
+  margin-bottom: 8px !important;
+}
+.markdown-body p { margin: 0 0 12px }
+.markdown-body pre { margin: 14px 0 }
+.markdown-body code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace }
+/* Add extra space at the end of rendered markdown so content isn't flush to the bottom */
+.markdown-body { padding-bottom: 48px !important; }
+.file-content h1, .file-content h2, .file-content h3 {
+  color: #1e293b;
+}
+.file-content p { margin: 0 0 12px }
+.file-content ul { margin: 0 0 12px 1.1rem }
+.inline-code {
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace;
+}
+.code-block {
+  background: #0f172a;
+  color: #e6eef8;
+  padding: 14px;
+  border-radius: 8px;
+  overflow: auto;
+}
+
+/* empty view */
+.empty-view { display:flex; align-items:center; justify-content:center; color:#888; }
+
+/* Responsive: collapse to single column on small screens */
+@media (max-width: 1000px) {
+  .app-root { grid-template-columns: 1fr; gap: 12px; padding: 1rem }
+  .sidebar { height: auto }
+  .viewer { height: auto }
+}

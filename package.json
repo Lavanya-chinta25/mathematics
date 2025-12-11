@@ -1,5 +1,5 @@
 {
-  "name": "mathematics",
+  "name": "machine-learning",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "prismjs": "^1.30.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
+  },
+  "optionalDependencies": {
+    "react-markdown": "^8.0.5",
+    "remark-gfm": "^3.0.1",
+    "rehype-prism-plus": "^1.1.0",
+    "prismjs": "^1.29.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
