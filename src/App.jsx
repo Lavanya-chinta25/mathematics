@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
 import './App.css'
+import 'katex/dist/katex.min.css';
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+import 'katex/dist/katex.min.css'
 
 // Use react-markdown + rehype-prism-plus for PrismJS highlighting
 import ReactMarkdown from 'react-markdown'
@@ -172,7 +176,13 @@ function Viewer({ file }) {
       <div className="viewer-header">Document Viewer</div>
       <div className="viewer-file">
         <div className="file-content markdown-body">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[[rehypePrism, { ignoreMissing: true }]]}>
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm, remarkMath]}
+            rehypePlugins={[
+              rehypeKatex,
+              [rehypePrism, { ignoreMissing: true }]
+            ]}
+          >
             {file.content}
           </ReactMarkdown>
         </div>
