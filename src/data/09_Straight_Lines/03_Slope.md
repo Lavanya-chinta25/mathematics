@@ -151,24 +151,39 @@ m_1 \ne m_2 \implies \text{Intersection}
 $$
 
 ---
-
 ## 2. Application: Optimizing Hospital Beds (Parallelism)
+
+![Hospital bed slope and parallelism illustration](https://github.com/meghanakondeti33/Images/blob/main/Images/hospital%20bed%20image.png)
+
+
+
 
 **Problem:** Arrange a row of hospital beds so that beds do not touch or overlap.
 
-**Geometric solution:** Make all beds parallel ($m_1 = m_2$).
+**Geometric solution:** Make all beds **parallel** ($m_1 = m_2$). $$ m_1 = m_2 = m_3 = \dots $$
 
-$$
-m_1 = m_2 = m_3 = \dots
-$$
+### Result
 
-Result:
+- All beds slant in the exact same direction  
+- Constant spacing is preserved along the entire row  
+- No collisions or overlaps occur  
 
-* All beds slant the exact same way.
-* They maintain constant spacing.
-* No collisions occur.
+### Why this works (geometric intuition)
 
----
+- Each bed’s inclination is determined by the **same rise-to-run ratio**
+- Scaling rise and run together preserves slope
+- The patient-leg directions form **parallel lines**, which never meet
+
+Parallel lines ⇒ equal slopes  
+Equal slopes ⇒ equal ratios  
+Equal ratios ⇒ identical inclination  
+
+**Key insight:**  
+This is not an angle problem.  
+It is a **directional-ratio constraint**.
+
+Control the ratio → control the layout.
+
 
 ## 3. Application: Corridors & Trolleys (Perpendicularity)
 
