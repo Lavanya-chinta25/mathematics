@@ -9,6 +9,7 @@ import 'katex/dist/katex.min.css'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypePrism from 'rehype-prism-plus'
+import rehypeRaw from 'rehype-raw'
 // Import a Prism theme — adjust if you prefer a different one
 import 'prismjs/themes/prism-tomorrow.css'
 
@@ -179,6 +180,7 @@ function Viewer({ file }) {
           <ReactMarkdown
             remarkPlugins={[remarkGfm, remarkMath]}
             rehypePlugins={[
+              rehypeRaw,
               rehypeKatex,
               [rehypePrism, { ignoreMissing: true }]
             ]}
